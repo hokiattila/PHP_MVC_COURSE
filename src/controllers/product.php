@@ -1,9 +1,9 @@
 <?php
-class Controller {
+class Product {
     public function index()
     {
-        require "model.php";
-        $model = new Model;
+        require "models/products.php";
+        $model = new Products;
         $products = $model->getData();
         require "view.php";
     }
