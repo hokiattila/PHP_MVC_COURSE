@@ -1,9 +1,9 @@
 <?php
-class Product {
+class Products {
     public function index() : void
     {
-        require "src/models/products.php";
-        $model = new Products;
+        require "src/models/product.php";
+        $model = new Product;
         $products = $model->getData();
         require "views/products_index.php";
     }
