@@ -1,9 +1,15 @@
 <?php
     $path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-    $segments = explode("/", $path);
+    require "src/router.php";
+    $router = new Router;
+    $router->add("/home/index", ["controller" => "home", "action" => "index"]);
+    $router->add("/products", ["controller"=>"product", "action" => "index"]);
+    $router->add("/", ["controller" => "home", "action" => "index"]);
 
-    $action = $segments[2];
-    $controller = $segments[1];
+   $params = $router->match($path);
+
+   $action = $params["action"];
+   $controller = $params["controller"];
     require "src/controllers/$controller.php";
 
     // Doesn't matter that the name is in lower case
