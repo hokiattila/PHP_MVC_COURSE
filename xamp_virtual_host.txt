@@ -1,0 +1,23 @@
+xampp\apache\conf\extra\httpd-vhosts.conf
+
+
+<VirtualHost *:80>
+    ServerName <név>.localhost
+    ServerAlias <név>.localhost
+    DocumentRoot "<elérési_út>"
+<Directory "<elérési_út>">
+        Require all granted
+        AllowOverride All
+</Directory>
+</VirtualHost>
+
+------------------------------------------------
+<VirtualHost *:80>
+    ServerName mvc.localhost
+    ServerAlias mvc.localhost
+    DocumentRoot "C:\Users\hokia\Documents\Workspace\PHP_MVC_COURSE"
+<Directory "C:\Users\hokia\Documents\Workspace\PHP_MVC_COURSE">
+        Require all granted
+        AllowOverride All
+</Directory>
+</VirtualHost>
