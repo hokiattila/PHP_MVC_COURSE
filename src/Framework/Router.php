@@ -15,7 +15,8 @@ class Router {
             $pattern = $this->getPatternFromRoutePath($route["path"]);
             if (preg_match($pattern, $path, $matches)) {
                 $matches = array_filter($matches, "is_string", ARRAY_FILTER_USE_KEY); // remove numeric indexes from the array
-                return $matches;
+                $params = array_merge($matches, $route["params"]);
+                return $params;
             }
         }
         return false;
