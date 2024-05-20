@@ -6,22 +6,15 @@
     });
 
     $router = new Framework\Router;
-    // $router->add("/{controller}/{action}");
+    // Place more specific roots first and more generic ones last
+    // The order is significant!
     $router->add("/{controller}/{id:\d+}/{action}");
     $router->add("/product/{slug:[\w-]+}", ["controller" => "products", "action" => "show"]);
-   $router->add("/home/index", ["controller" => "home", "action" => "index"]);
+    $router->add("/home/index", ["controller" => "home", "action" => "index"]);
     $router->add("/products", ["controller"=>"products", "action" => "index"]);
     $router->add("/", ["controller" => "home", "action" => "index"]);
+    $router->add("/{controller}/{action}"); // Most generic routing
 
-   $params = $router->match($path);
-    if($params === false) exit("No route matched");
 
-   $action = $params["action"];
-   $controller = "App\Controllers\\".ucwords($params["controller"]);
-
-    // Doesn't matter that the name is in lower case
-    $controller_object = new $controller;
-
-    // Call function with the same name
-    $controller_object->$action();
-
+    $dispatcher = new Framework\Dispatcher($router);
+    $dispatcher->handle($path);
