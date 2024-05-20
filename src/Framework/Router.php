@@ -10,7 +10,7 @@ class Router {
     }
 
     public function match(string $path): array|bool {
-        $path = trim($path, "/");
+        $path = trim(urldecode($path), "/");
         foreach ($this->routes as $route) {
             $pattern = $this->getPatternFromRoutePath($route["path"]);
             if (preg_match($pattern, $path, $matches)) {
@@ -36,7 +36,7 @@ class Router {
                 return preg_quote($segment, '#');
             }
         }, $segments);
-        return "#^" . implode("/", $segments) . "$#i"; // Adding i character to make it case-insensitive
+        return "#^" . implode("/", $segments) . "$#iu"; // Adding i character to make it case-insensitive, u for matching unicode characters
     }
 
 }
