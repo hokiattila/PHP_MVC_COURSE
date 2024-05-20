@@ -36,7 +36,7 @@ class Router {
                 return preg_quote($segment, '#');
             }
         }, $segments);
-        return "#^" . implode("/", $segments) . "$#";
+        return "#^" . implode("/", $segments) . "$#i"; // Adding i character to make it case-insensitive
     }
 
 }
