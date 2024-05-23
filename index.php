@@ -8,6 +8,7 @@
     $router = new Framework\Router;
     // Place more specific roots first and more generic ones last
     // The order is significant!
+    $router->add("/admin/{controller}/{action}", ["namespace" => "Admin"]);
     $router->add("/{title}/{id:\d+}/{page:\d+}", ["controller" => "products", "action" => "showPage"]);
     $router->add("/product/{slug:[\w-]+}", ["controller" => "products", "action" => "show"]);
     $router->add("/{controller}/{id:\d+}/{action}");

@@ -11,8 +11,8 @@ class Dispatcher {
     public function handle(string $path) : void {
         $params = $this->router->match($path);
         if($params === false) exit("No route matched");
-        $action = $params["action"];
-        $controller = "App\Controllers\\".ucwords($params["controller"]);
+        $action = $this->getActionName($params);
+        $controller = $this->getControllerName($params);
 
         // Doesn't matter that the name is in lower case
         $controller_object = new $controller;
@@ -33,5 +33,19 @@ class Dispatcher {
         return $args;
     }
 
+    private function getControllerName(array $params) : string {
+            $controller = $params["controller"];
+            $controller = str_replace("-","",ucwords(strtolower($controller), "-"));
+            $namespace = "App\Controllers";
+            if(array_key_exists("namespace", $params)) {
+                $namespace .= "\\" . $params["namespace"];
+            }
+            return $namespace . "\\" . $controller;
+    }
 
+    private function getActionName(array $params): string {
+        $action = $params["action"];
+        $action = lcfirst(str_replace("-","",ucwords(strtolower($action), "-")));
+        return $action;
+    }
 }
